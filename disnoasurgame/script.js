@@ -11,18 +11,16 @@ function jump() {
   }, 650);
 }
 
-var checkDead = setInterval(function () {
+var checkDead = setInterval(() => {
   var characterTop = parseInt(
     window.getComputedStyle(character).getPropertyValue("top")
   );
   var blockLeft = parseInt(
-    window.getComputedStyle(character).getPropertyValue("left")
+    window.getComputedStyle(block).getPropertyValue("left")
   );
 
-  if (characterTop >= 350 && blockLeft > 0 && blockLeft < 20) {
-    block.style.animation = none;
-    alert("You Lose... haha loser");
+  if (blockLeft <= 19 && blockLeft >= -10 && characterTop > 340) {
+    block.style.animation = "none";
+    alert("You lost");
   }
-
-  console.log(characterTop);
-}, 10);
+}, 5);
