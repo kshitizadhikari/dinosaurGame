@@ -1,4 +1,5 @@
 import { setupGround, updateGround } from "./ground.js";
+import { setupDino, updateDino } from "./dino.js";
 
 const WORLD_HEIGHT = 30;
 const WORLD_WIDTH = 100;
@@ -25,6 +26,7 @@ function update(time) {
   updateGround(delta, speedScale);
   updateSpeedScale(delta);
   updateScore(delta);
+  updateDino(delta, speedScale);
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -43,6 +45,7 @@ function handleStart() {
   lastTime = null;
   score = 0;
   setupGround();
+  setupDino();
   window.requestAnimationFrame(update);
 }
 

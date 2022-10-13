@@ -17,7 +17,7 @@ export function updateGround(delta) {
     incCustomProperty(ground, "--left", delta * SPEED * -1);
 
     if (getCustomProperty(ground, "--left") <= -300) {
-      setCustomProperty(ground, "--left", 300);
+      setCustomProperty(ground, "--left", 200);
     }
   });
 }
