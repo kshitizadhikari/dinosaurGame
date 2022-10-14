@@ -1,5 +1,6 @@
 import { setupGround, updateGround } from "./ground.js";
 import { setupDino, updateDino } from "./dino.js";
+import { setupCactus, updateCactus } from "./cactus.js";
 
 const WORLD_HEIGHT = 30;
 const WORLD_WIDTH = 100;
@@ -27,6 +28,7 @@ function update(time) {
   updateSpeedScale(delta);
   updateScore(delta);
   updateDino(delta, speedScale);
+  updateCactus(delta, speedScale);
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -40,12 +42,15 @@ function updateScore(delta) {
 function updateSpeedScale(delta) {
   speedScale += delta * SPEED_SCALE_INC;
 }
+
+//opening the game
 function handleStart() {
   speedScale = 1;
   lastTime = null;
   score = 0;
   setupGround();
   setupDino();
+  setupCactus();
   window.requestAnimationFrame(update);
 }
 

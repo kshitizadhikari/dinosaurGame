@@ -15,7 +15,7 @@ body {
 }
 
 .world {
-  background-color: aqua;
+  background-color: none;
   overflow: hidden;
   position: relative;
 }
@@ -51,12 +51,14 @@ body {
   --bottom: 0;
   position: absolute;
   height: 25%;
-  left: 2%;
+  left: 4%;
   bottom: calc(var(--bottom) * 1%);
 }
 
 .cactus {
+  --left: 0;
   position: absolute;
   height: 25%;
+  bottom: 0;
   left: calc(var(--left) * 1%);
 }
