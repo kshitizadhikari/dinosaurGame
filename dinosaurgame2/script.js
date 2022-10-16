@@ -1,12 +1,13 @@
 import { setupGround, updateGround } from "./ground.js";
-import { setupDino, updateDino } from "./dino.js";
-import { setupCactus, updateCactus } from "./cactus.js";
+import { setupDino, updateDino, getDinoRect, setDinoLose } from "./dino.js";
+import { setupCactus, updateCactus, getCactusRects } from "./cactus.js";
 
 const WORLD_HEIGHT = 30;
 const WORLD_WIDTH = 100;
 const SPEED_SCALE_INC = 0.00001;
 const worldElem = document.querySelector("[data-world]");
 const scoreElem = document.querySelector("[data-score]");
+const startScreenElem = document.querySelector("[data-startScreen]");
 
 setPixelToWorldScale();
 window.addEventListener("resize", setPixelToWorldScale);
@@ -30,8 +31,25 @@ function update(time) {
   updateDino(delta, speedScale);
   updateCactus(delta, speedScale);
 
+  if (checkLose()) return handleLose();
   lastTime = time;
+
   window.requestAnimationFrame(update);
+}
+
+function checkLose() {
+  const dinoRect = getDinoRect();
+  return getCactusRects().some((rect) => isCollision(rect, dinoRect));
+}
+
+//rect 1 = cactus, rect 2 = dino
+function isCollision(rect1, rect2) {
+  return (
+    rect1.left < rect2.right &&
+    rect1.top < rect2.bottom &&
+    rect1.right > rect2.left &&
+    rect1.bottom > rect2.top
+  );
 }
 
 function updateScore(delta) {
@@ -51,7 +69,17 @@ function handleStart() {
   setupGround();
   setupDino();
   setupCactus();
+  startScreenElem.classList.add("hide");
   window.requestAnimationFrame(update);
+}
+
+function handleLose() {
+  console.log("lost");
+  setDinoLose();
+  setTimeout(() => {
+    document.addEventListener("keydown", handleStart, { once: true });
+    startScreenElem.classList.remove("hide");
+  }, 100);
 }
 
 //resize

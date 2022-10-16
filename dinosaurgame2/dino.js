@@ -5,10 +5,10 @@ import {
 } from "./updateCustomProperty.js";
 
 const dinoElem = document.querySelector("[data-dino]");
-const GRAVITY = 0.0038;
+const GRAVITY = 0.005;
 const DINO_FRAME_COUNT = 2;
-const JUMP_SPEED = 2;
-const FRAME_TIME = 150;
+const JUMP_SPEED = 3;
+const FRAME_TIME = 100;
 
 let isJumping;
 let dinoFrame;
@@ -30,6 +30,9 @@ export function updateDino(delta, speedScale) {
   handleJump(delta);
 }
 
+export function setDinoLose() {
+  dinoElem.src = "imgs/dino-lose.png";
+}
 function handleRun(delta, speedScale) {
   if (isJumping) {
     dinoElem.src = `imgs/dino-stationary.png`;
@@ -62,4 +65,8 @@ function onJump(e) {
 
   yVelocity = JUMP_SPEED;
   isJumping = true;
+}
+
+export function getDinoRect() {
+  return dinoElem.getBoundingClientRect();
 }
